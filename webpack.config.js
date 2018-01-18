@@ -36,7 +36,7 @@ module.exports = createConfig([
     setOutput('./dist/[name].js'),
   ]),
   env('production', [
-    setOutput('./dist/[name].[hash].js'),
+    setOutput('./dist/[name].js'),
   ]),
   babel(),
   match(['*.css'], [
