@@ -1,10 +1,9 @@
 <html>
   <head></head>
   <body>
-
     <script>
       const tokenJs = new TokenJS({
-        apiKey: 'someApiKey'
+        apiKey: '<%= htmlWebpackPlugin.options.API_KEY %>',
       });
 
       tokenJs.open();

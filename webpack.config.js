@@ -1,3 +1,5 @@
+require('dotenv').config({ silent: true });
+
 const path = require('path');
 const webpack = require('webpack');
 const {
@@ -36,7 +38,7 @@ module.exports = createConfig([
     setOutput('./dist/[name].js'),
   ]),
   env('production', [
-    setOutput('./dist/[name].js'),
+    setOutput('./dist/Token.js'),
   ]),
   babel(),
   match(['*.css'], [
@@ -56,16 +58,25 @@ module.exports = createConfig([
     url({ limit: DATAURL_LIMIT, mimetype: 'image/svg+xml' }),
   ]),
   addPlugins([
-    new HtmlPlugin({
-      template: './example/index.html',
-      config,
-      NODE_ENV,
-      inject: 'head',
+    new webpack.DefinePlugin({
+      'process.env.API_KEY': process.env.API_KEY,
     }),
   ]),
   env('development', [
     devServer({ overlay: true }),
     sourceMaps(),
+    addPlugins([
+      new webpack.DefinePlugin({
+        'process.env.API_KEY': process.env.API_KEY,
+      }),
+      new HtmlPlugin({
+        template: './example/index.html',
+        config,
+        inject: 'head',
+        NODE_ENV,
+        API_KEY: process.env.API_KEY,
+      }),
+    ]),
   ]),
   env('production', [
     uglify(),

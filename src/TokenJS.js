@@ -1,9 +1,13 @@
+import apiClient, { withQuery } from './api';
+
 export default class TokenJS {
   constructor({ apiKey }) {
-    this.apiKey = apiKey;
+    this.api = apiClient({ apiKey });
   }
 
   open = () => {
-    console.log(this.apiKey);
+    this.api.get(withQuery('/users', {})).then((result) => {
+      console.log(result);
+    });
   }
 }
