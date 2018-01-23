@@ -1,4 +1,6 @@
+import { app, h } from 'hyperapp';
 import apiClient, { withQuery } from './api';
+import App from './components/App';
 
 export default class TokenJS {
   constructor({ apiKey }) {
@@ -6,8 +8,10 @@ export default class TokenJS {
   }
 
   open = () => {
+    app({}, {}, App, document.body);
+
     this.api.get(withQuery('/users', {})).then((result) => {
       console.log(result);
     });
-  }
+  };
 }
