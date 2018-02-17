@@ -3,11 +3,11 @@ import Step from './Step';
 import Button from '../common/Button';
 import { FormGroup, FormLabel, FormControl } from '../forms';
 
-const ContributorStep = () => (
+const ContributorStep = ({ onNextStep }) => (
   <Step
     title="Enter your details"
     renderAction={() => (
-      <Button variant="primary">Continue</Button>
+      <Button variant="primary" onclick={onNextStep}>Continue</Button>
     )}
   >
     <form noValidate>
