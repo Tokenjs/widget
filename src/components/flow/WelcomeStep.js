@@ -11,8 +11,7 @@ const WelcomeStep = component(
       </h1>
       <button type="button" onclick={state.onNextStep}>Continue</button>
     </div>
-  ),
-  'x-welcome-step'
+  )
 );
 
 export default WelcomeStep;

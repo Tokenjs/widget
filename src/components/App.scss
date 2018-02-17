@@ -1,0 +1,55 @@
+@import '~minireset.css/minireset.sass';
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(black, 0.5);
+  font-family: $fontFamily;
+  font-size: 16px;
+  line-height: 1.25;
+  color: $colorText;
+
+  x-app,
+  x- // wrapper elements created by hyperapp-nestable
+  {
+    display: block;
+  }
+}
+
+.modal {
+  position: relative;
+  width: 300px;
+  box-shadow: 0 4px 10px 0 rgba(#000, 0.1);
+}
+
+.body {
+  background: white;
+}
+
+.closeButton {
+  @include unstyledButton;
+  @include transition(opacity);
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 44px;
+  height: 44px;
+  opacity: 0.75;
+  color: white;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.closeIcon {
+  font-size: 24px;
+}

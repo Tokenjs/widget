@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.root {
+  @include transition(border);
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background-color: $colorLight;
+  font-size: 1em;
+  line-height: 1.25;
+  font-family: $fontFamilyMonospace;
+  color: inherit;
+  appearance: none;
+
+  &:focus {
+    border-color: $colorPrimary;
+    outline: 0;
+  }
+}

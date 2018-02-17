@@ -1,5 +1,5 @@
 import { app, h } from 'hyperapp';
-import apiClient, { withQuery } from './api';
+import apiClient from './api';
 import App from './components/App';
 
 export default class TokenJS {
@@ -7,11 +7,7 @@ export default class TokenJS {
     this.api = apiClient({ apiKey });
   }
 
-  open = () => {
-    app({}, {}, App, document.body);
-
-    this.api.get(withQuery('/users', {})).then((result) => {
-      console.log(result);
-    });
+  open = (container = document.body) => {
+    app({}, {}, App, container);
   };
 }

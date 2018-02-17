@@ -1,12 +1,17 @@
 <html>
-  <head></head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Token.js Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
   <body>
+    <div id="root"></div>
+
     <script>
       const tokenJs = new TokenJS({
         apiKey: '<%= htmlWebpackPlugin.options.API_KEY %>',
       });
-
-      tokenJs.open();
+      tokenJs.open(document.getElementById('root'));
     </script>
   </body>
 </html>

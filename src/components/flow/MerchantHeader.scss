@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+
+.root {
+  padding: 30px 20px;
+  background-color: $colorInfo;
+  color: $colorInfoInverted;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: $weightLight;
+
+  span {
+    display: block;
+    font-size: 1.125em;
+  }
+
+  strong {
+    font-weight: $weightSemibold;
+  }
+}

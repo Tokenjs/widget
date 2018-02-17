@@ -14,8 +14,11 @@
     "> 0.5%"
   ],
   "dependencies": {
+    "classnames": "^2.2.5",
+    "feather-icons": "^4.5.0",
     "hyperapp": "^1.1.2",
-    "hyperapp-nestable": "^0.2.1"
+    "hyperapp-nestable": "^0.2.1",
+    "minireset.css": "^0.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
@@ -37,6 +40,7 @@
     "eslint-plugin-react": "^7.4.0",
     "html-webpack-plugin": "^2.30.1",
     "husky": "^0.14.3",
+    "raw-loader": "^0.5.1",
     "rimraf": "^2.6.2",
     "webpack": "^3.11.0",
     "webpack-blocks": "^1.0.0-rc.2"
