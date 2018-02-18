@@ -1,17 +1,16 @@
 import { h } from 'hyperapp';
 import Step from './Step';
 import FormLabel from '../forms/FormLabel';
-import Icon from '../common/Icon';
+import Spinner from '../common/Spinner';
 import QrCode from '../common/QrCode';
 import WalletAddress from '../common/WalletAddress';
-import loaderIcon from '!raw-loader!feather-icons/dist/icons/loader.svg'; // eslint-disable-line
 import styles from './DepositStep.scss';
 
 const DepositStep = () => (
   <Step title="Send your contribution to the wallet address below">
     <div className={styles.pendingMessage}>
-      <Icon className={styles.pendingIcon} svg={loaderIcon} />
-      Awaiting contribution…
+      <Spinner className={styles.pendingSpinner} />
+      Awaiting transaction…
     </div>
     <div className={styles.walletAddress}>
       <FormLabel>Ethereum Wallet Address</FormLabel>
