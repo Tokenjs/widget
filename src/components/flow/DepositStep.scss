@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.root {
+}
+
+.pendingMessage {
+  display: flex;
+  align-items: center;
+  margin: 30px;
+  text-align: center;
+  font-style: italic;
+  color: $colorInfo;
+}
+
+.pendingIcon {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.walletAddress {
+  margin-bottom: 10px;
+}
+
+.qrCode {
+  border: 2px solid $colorLight;
+}

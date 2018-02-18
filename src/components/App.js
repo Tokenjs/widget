@@ -13,22 +13,23 @@ const App = component(
   {
     goTo: step => () => ({ currentStep: step }),
   },
-  (state, actions) => (
+  ({ currentStep }, actions) => (
     <div className={styles.root}>
       <div className={styles.modal}>
         <MerchantHeader />
         <div className={styles.body}>
-          {state.currentStep === 'contributor' && (
+          {currentStep === 'contributor' && (
             <ContributorStep onNextStep={() => actions.goTo('method')} />
           )}
-          {state.currentStep === 'method' && (
+          {currentStep === 'method' && (
             <MethodStep onNextStep={() => actions.goTo('deposit')} />
           )}
-          {state.currentStep === 'deposit' && (
+          {currentStep === 'deposit' && (
             <DepositStep />
           )}
         </div>
-        <button className={styles.closeButton}>
+        <button className={styles.closeButton} onclick={() => actions.goTo('contributor')}>
+
           <Icon className={styles.closeIcon} svg={closeIcon} />
         </button>
       </div>

@@ -15,10 +15,13 @@
   ],
   "dependencies": {
     "classnames": "^2.2.5",
+    "cryptocoins-icons": "^2.7.0",
     "feather-icons": "^4.5.0",
+    "gotem": "^0.0.3",
     "hyperapp": "^1.1.2",
     "hyperapp-nestable": "^0.2.1",
-    "minireset.css": "^0.0.3"
+    "minireset.css": "^0.0.3",
+    "qrious": "^4.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
