@@ -1,7 +1,10 @@
 @import '../../styles/variables';
 
 .root {
-  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  height: $headerHeight;
+  padding: 0 20px;
   background-color: $colorInfo;
   color: $colorInfoInverted;
 }

@@ -15,23 +15,25 @@ const App = component(
   },
   ({ currentStep }, actions) => (
     <div className={styles.root}>
-      <div className={styles.modal}>
-        <MerchantHeader />
-        <div className={styles.body}>
-          {currentStep === 'contributor' && (
-            <ContributorStep onNextStep={() => actions.goTo('method')} />
-          )}
-          {currentStep === 'method' && (
-            <MethodStep onNextStep={() => actions.goTo('deposit')} />
-          )}
-          {currentStep === 'deposit' && (
-            <DepositStep />
-          )}
-        </div>
-        <button className={styles.closeButton} onclick={() => actions.goTo('contributor')}>
+      <div className={styles.modalWrapper}>
+        <div className={styles.modal}>
+          <MerchantHeader />
+          <div className={styles.body}>
+            {currentStep === 'contributor' && (
+              <ContributorStep onNextStep={() => actions.goTo('method')} />
+            )}
+            {currentStep === 'method' && (
+              <MethodStep onNextStep={() => actions.goTo('deposit')} />
+            )}
+            {currentStep === 'deposit' && (
+              <DepositStep />
+            )}
+          </div>
+          <button className={styles.closeButton} onclick={() => actions.goTo('contributor')}>
 
-          <Icon className={styles.closeIcon} svg={closeIcon} />
-        </button>
+            <Icon className={styles.closeIcon} svg={closeIcon} />
+          </button>
+        </div>
       </div>
     </div>
   ),
