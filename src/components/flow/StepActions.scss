@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+.root {
+  display: flex;
+  width: calc(100% + #{2 * $paddingHorizontal});
+  margin: 25px (-$paddingHorizontal) -25px;
+
+  > * {
+    flex: 1;
+  }
+}

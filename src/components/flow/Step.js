@@ -1,15 +1,10 @@
 import { h } from 'hyperapp';
 import styles from './Step.scss';
 
-const Step = ({ title, renderAction }, children) => (
+const Step = ({ title }, children) => (
   <section className={styles.root}>
     <h1 className={styles.title}>{title}</h1>
     {children}
-    {renderAction && (
-      <div className={styles.actions}>
-        {renderAction()}
-      </div>
-    )}
   </section>
 );
 
