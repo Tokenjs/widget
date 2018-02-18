@@ -20,3 +20,9 @@
     slow: 400ms,
   ), $speed) ease-out;
 }
+
+@mixin ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
