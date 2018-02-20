@@ -1,45 +1,39 @@
 import { h } from 'hyperapp';
+import { withForm, required, email } from '../../services/forms';
 import Step from './Step';
 import StepActions from './StepActions';
 import Button from '../common/Button';
-import { FormGroup, FormLabel, FormControl } from '../forms';
+import { FormGroup, FormLabel, FormControl, FormError } from '../forms';
 import component from 'hyperapp-nestable';
 
 const ContributorStep = component(
-  {
-    values: {
-      email: '',
-      wallet: '',
-    },
-    validation: {
-      email: '',
-      wallet: '',
-    },
-    onNextStep: () => {},
-  },
-  {
-    updateField: event => ({ values }) => ({
-      validation: validate(values),
-      values: {
-        ...values,
-        [event.target.name]: event.target.value,
+  ...withForm(
+    {
+      email: {
+        initialValue: '',
+        rules: [required, email],
       },
-    }),
-    submitForm: event => ({ values, validation, onNextStep }) => {
-      event.preventDefault();
-
-      const valid = !Object.values(validation).filter(val => val).length;
-      if (!valid) {
-        return;
-      }
-
-      // TODO: save contributor
-      console.log(values);
-
-      onNextStep();
+      wallet: {
+        initialValue: '',
+        rules: [required],
+      },
     },
-  },
-  ({ values }, actions) => (
+    {
+      onNextStep: () => {},
+    },
+    {
+      handleSubmit: values => ({ onNextStep }) => {
+        // TODO: save contributor
+        console.log(values);
+
+        return (new Promise(resolve => setTimeout(resolve, 2000)))
+          .then(onNextStep);
+      },
+    }
+  ),
+  ({
+    values, touched, errors, submitting,
+  }, actions) => (
     <Step title="Enter your details">
       <form noValidate onsubmit={actions.submitForm}>
         <FormGroup>
@@ -51,8 +45,12 @@ const ContributorStep = component(
             name="email"
             id="contributor-email"
             value={values.email}
+            onblur={actions.touchField}
             oninput={actions.updateField}
           />
+          {(touched.email && errors.email) && (
+            <FormError>{errors.email}</FormError>
+          )}
         </FormGroup>
         <FormGroup>
           <FormLabel for="contributor-wallet">
@@ -63,20 +61,21 @@ const ContributorStep = component(
             name="wallet"
             id="contributor-wallet"
             value={values.wallet}
+            onblur={actions.touchField}
             oninput={actions.updateField}
           />
+          {(touched.wallet && errors.wallet) && (
+            <FormError>{errors.wallet}</FormError>
+          )}
         </FormGroup>
         <StepActions>
-          <Button variant="primary">Continue</Button>
+          <Button variant="primary" disabled={submitting}>
+            {submitting ? 'Submitting…' : 'Continue'}
+          </Button>
         </StepActions>
       </form>
     </Step>
   )
 );
-
-// TODO: implement validation
-function validate() {
-  return {};
-}
 
 export default ContributorStep;
