@@ -1,27 +1,20 @@
 import { apiUrl } from './config';
 
-export function withQuery(url, params) {
-  const queryString = Object.keys(params)
-    .map(key => [key, params[key]])
-    .filter(([, value]) => value !== undefined && value !== '')
-    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-    .join('&');
-  return queryString ? `${url}?${queryString}` : url;
-}
+let client;
+let apiKey;
 
-function parseBodyByContentType(response) {
-  const contentType = response.headers.get('Content-Type');
-  return contentType === 'application/json' ? response.json() : response.text();
-}
+export default function apiClient() {
+  if (client) {
+    return client;
+  }
 
-export default function apiClient({ apiKey }) {
   function sendRequest(path, options = {}) {
     return fetch(apiUrl + path, {
       ...options,
       headers: {
-        Accept: 'application/json',
+        'Content-Type': 'application/json',
         ...options.headers,
-        authorization: `ApiKey ${apiKey}`,
+        Authorization: `ApiKey ${apiKey}`,
       },
     }).then((response) => {
       const { status } = response;
@@ -34,7 +27,7 @@ export default function apiClient({ apiKey }) {
     });
   }
 
-  return {
+  client = {
     get(path, options) {
       return sendRequest(path, { ...options, method: 'GET' });
     },
@@ -46,5 +39,25 @@ export default function apiClient({ apiKey }) {
       });
     },
   };
+
+  return client;
+}
+
+export function setApiKey(key) {
+  apiKey = key;
+}
+
+export function withQuery(url, params) {
+  const queryString = Object.keys(params)
+    .map(key => [key, params[key]])
+    .filter(([, value]) => value !== undefined && value !== '')
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join('&');
+  return queryString ? `${url}?${queryString}` : url;
+}
+
+function parseBodyByContentType(response) {
+  const contentType = response.headers.get('Content-Type');
+  return contentType === 'application/json' ? response.json() : response.text();
 }
 

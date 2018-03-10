@@ -1,4 +1,5 @@
 import { h } from 'hyperapp';
+import apiClient from '../../api';
 import { withForm, required, email } from '../../services/forms';
 import Step from './Step';
 import StepActions from './StepActions';
@@ -22,13 +23,17 @@ const ContributorStep = component(
       onNextStep: () => {},
     },
     {
-      handleSubmit: values => ({ onNextStep }) => {
-        // TODO: save contributor
-        console.log(values);
-
-        return (new Promise(resolve => setTimeout(resolve, 2000)))
-          .then(onNextStep);
-      },
+      handleSubmit: values => ({ onNextStep }) => (
+        apiClient().post('/contributions', {
+          destinationWalletAddress: values.wallet,
+          type: 'crypto',
+          currency: 'ETH',
+          data: {
+            email: values.email,
+          },
+        })
+          .then(onNextStep)
+      ),
     }
   ),
   ({

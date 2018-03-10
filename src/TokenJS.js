@@ -1,10 +1,10 @@
 import { app, h } from 'hyperapp';
-import apiClient from './api';
+import { setApiKey } from './api';
 import App from './components/App';
 
 export default class TokenJS {
   constructor({ apiKey }) {
-    this.api = apiClient({ apiKey });
+    setApiKey(apiKey);
   }
 
   open = (container = document.body) => {
