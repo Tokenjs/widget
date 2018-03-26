@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import apiClient from '../api';
 import Icon from './common/Icon';
 import MerchantHeader from './flow/MerchantHeader';
 import ContributorStep from './flow/ContributorStep';
@@ -10,9 +11,38 @@ import styles from './App.scss';
 class App extends Component {
   state = {
     screen: 'contributor',
+    contribution: undefined,
   };
 
   goToScreen = screen => this.setState({ screen });
+
+  saveContributor = contributor => (
+    apiClient().post('/contributions', {
+      destinationWalletAddress: contributor.wallet,
+      type: 'crypto',
+      currency: 'ETH',
+      data: {
+        email: contributor.email,
+      },
+    })
+      .then((contribution) => {
+        this.setState({ contribution });
+        this.goToScreen('method');
+      })
+  );
+
+  saveMethod = currency => (
+    apiClient().patch(`/contributions/${this.state.contribution.id}`, { currency })
+      .then(() => {
+        this.setState(state => ({
+          contribution: {
+            ...state.contribution,
+            currency,
+          },
+        }));
+        this.goToScreen('deposit');
+      })
+  );
 
   render(props, state) {
     return (
@@ -22,15 +52,10 @@ class App extends Component {
             <MerchantHeader />
             <div className={styles.body}>
               {state.screen === 'contributor' && (
-                <ContributorStep
-                  onSubmitted={() => {
-                    this.goToScreen('method');
-                    return Promise.resolve();
-                  }}
-                />
+                <ContributorStep onSubmitted={this.saveContributor} />
               )}
               {state.screen === 'method' && (
-                <MethodStep onNextStep={() => this.goToScreen('deposit')} />
+                <MethodStep onSelected={this.saveMethod} />
               )}
               {state.screen === 'deposit' && (
                 <DepositStep />

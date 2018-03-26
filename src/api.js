@@ -36,6 +36,13 @@ export default function apiClient() {
         body: JSON.stringify(body),
       });
     },
+    patch(path, body = {}, options) {
+      return sendRequest(path, {
+        ...options,
+        method: 'PATCH',
+        body: JSON.stringify(body),
+      });
+    },
   };
 
   return client;
