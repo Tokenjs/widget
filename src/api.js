@@ -18,11 +18,9 @@ export default function apiClient() {
       },
     }).then((response) => {
       const { status } = response;
-
       if (status >= 400) {
         return parseBodyByContentType(response).then(error => Promise.reject(error));
       }
-
       return parseBodyByContentType(response);
     });
   }
@@ -58,6 +56,6 @@ export function withQuery(url, params) {
 
 function parseBodyByContentType(response) {
   const contentType = response.headers.get('Content-Type');
-  return contentType === 'application/json' ? response.json() : response.text();
+  return contentType.indexOf('application/json') > -1 ? response.json() : response.text();
 }
 
