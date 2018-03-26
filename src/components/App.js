@@ -8,6 +8,8 @@ import DepositStep from './flow/DepositStep';
 import closeIcon from '!raw-loader!feather-icons/dist/icons/x.svg'; // eslint-disable-line
 import styles from './App.scss';
 
+const POLL_FOR_PAYMENTS_EVERY_MS = 2000;
+
 class App extends Component {
   state = {
     screen: 'contributor',
@@ -33,32 +35,41 @@ class App extends Component {
 
   saveMethod = currency => (
     apiClient().patch(`/contributions/${this.state.contribution.id}`, { currency })
-      .then(() => {
-        this.setState(state => ({
-          contribution: {
-            ...state.contribution,
-            currency,
-          },
-        }));
+      .then((contribution) => {
+        this.setState({ contribution });
         this.goToScreen('deposit');
+        this.pollForPayments();
       })
   );
 
-  render(props, state) {
+  pollForPayments = () => (
+    apiClient().get(`/contributions/${this.state.contribution.id}?$populate=Payments`)
+      .then((contribution) => {
+        this.setState({ contribution });
+        if (!contribution.Payments.length) {
+          setTimeout(this.pollForPayments, POLL_FOR_PAYMENTS_EVERY_MS);
+        }
+      })
+  );
+
+  render(props, { screen, contribution }) {
     return (
       <div className={styles.root}>
         <div className={styles.modalWrapper}>
           <div className={styles.modal}>
             <MerchantHeader />
             <div className={styles.body}>
-              {state.screen === 'contributor' && (
+              {screen === 'contributor' && (
                 <ContributorStep onSubmitted={this.saveContributor} />
               )}
-              {state.screen === 'method' && (
+              {screen === 'method' && (
                 <MethodStep onSelected={this.saveMethod} />
               )}
-              {state.screen === 'deposit' && (
-                <DepositStep />
+              {screen === 'deposit' && (
+                <DepositStep
+                  payment={contribution.Payments && contribution.Payments[0]}
+                  depositWalletAddress={contribution.depositWalletAddress}
+                />
               )}
             </div>
             <button className={styles.closeButton} onClick={() => this.goToScreen('contributor')}>

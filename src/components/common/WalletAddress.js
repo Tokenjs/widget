@@ -26,10 +26,10 @@ class WalletAddress extends Component {
     setTimeout(() => this.setState({ copied: false }), 2000);
   };
 
-  render(props, state) {
+  render({ value }, { copied }) {
     return (
       <div className={styles.root}>
-        <FormControl className={styles.input} value={props.value} readOnly />
+        <FormControl className={styles.input} value={value} readOnly />
         <Button
           ref={(instance) => {
             this.triggerNode = instance.base;
@@ -44,9 +44,9 @@ class WalletAddress extends Component {
           }}
           className={styles.text}
         >
-          {props.value}
+          {value}
         </p>
-        <div className={classnames(styles.copiedOverlay, state.copied && styles.copiedOverlayShown)}>Copied!</div>
+        <div className={classnames(styles.copiedOverlay, copied && styles.copiedOverlayShown)}>Copied!</div>
       </div>
     );
   }
