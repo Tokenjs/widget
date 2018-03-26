@@ -3259,13 +3259,13 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-hyperapp-nestable@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/hyperapp-nestable/-/hyperapp-nestable-0.2.1.tgz#44d085d9ba9f7433ff59289a4bf79b795f7513bd"
+hyperapp-nestable@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/hyperapp-nestable/-/hyperapp-nestable-1.0.0.tgz#057ce9a2b4642648033e96dad2acce0390f75093"
 
-hyperapp@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-1.1.2.tgz#68a0087d2b28df04439ca43646f8b989d4d1d079"
+hyperapp@^1.2.4:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-1.2.5.tgz#81eab50089413a6c0e85899abc2b9cd23393b9cc"
 
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
