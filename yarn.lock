@@ -3259,14 +3259,6 @@ husky@^0.14.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-hyperapp-nestable@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/hyperapp-nestable/-/hyperapp-nestable-1.0.0.tgz#057ce9a2b4642648033e96dad2acce0390f75093"
-
-hyperapp@^1.2.4:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-1.2.5.tgz#81eab50089413a6c0e85899abc2b9cd23393b9cc"
-
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
@@ -5005,6 +4997,10 @@ postcss@^6.0.17:
     chalk "^2.3.1"
     source-map "^0.6.1"
     supports-color "^5.2.0"
+
+preact@^8.2.7:
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.7.tgz#316249fb678cd5e93e7cee63cea7bfb62dbd6814"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

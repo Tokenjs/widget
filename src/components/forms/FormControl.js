@@ -1,4 +1,4 @@
-import { h } from 'hyperapp';
+import { h } from 'preact';
 import classnames from 'classnames';
 import styles from './FormControl.scss';
 

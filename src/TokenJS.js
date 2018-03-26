@@ -1,4 +1,4 @@
-import { app, h } from 'hyperapp';
+import { h, render } from 'preact';
 import { setApiKey } from './api';
 import App from './components/App';
 
@@ -8,6 +8,6 @@ export default class TokenJS {
   }
 
   open = (container = document.body) => {
-    app({}, {}, App, container);
+    render(<App />, container);
   };
 }

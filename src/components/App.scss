@@ -4,15 +4,8 @@
 
 html,
 body,
-:global(#root),
-x-app {
+:global(#root) {
   height: 100%;
-}
-
-x-app,
-x- // wrapper elements created by hyperapp-nestable
-{
-  display: block;
 }
 
 .root {

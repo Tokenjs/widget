@@ -1,10 +1,8 @@
-import { h } from 'hyperapp';
+import { h } from 'preact';
 import styles from './FormError.scss';
 
-const FormError = (state, children) => (
-  <div className={styles.root}>
-    {children}
-  </div>
+const FormError = props => (
+  <div className={styles.root} {...props} />
 );
 
 export default FormError;

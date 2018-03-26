@@ -1,4 +1,4 @@
-import { h } from 'hyperapp';
+import { h } from 'preact';
 import Step from './Step';
 import FormLabel from '../forms/FormLabel';
 import Spinner from '../common/Spinner';

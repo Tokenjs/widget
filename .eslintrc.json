@@ -27,6 +27,7 @@
     "import/no-named-as-default": "off",
     "import/first": "off",
     "react/react-in-jsx-scope": "off",
+    "react/no-unused-state": "off",
     "react/no-unknown-property": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": ["error", {

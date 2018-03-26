@@ -1,4 +1,4 @@
-import { h } from 'hyperapp';
+import { h } from 'preact';
 import styles from './MerchantHeader.scss';
 
 const MerchantHeader = () => (

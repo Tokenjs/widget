@@ -1,29 +1,11 @@
-import { h } from 'hyperapp';
-import component from 'hyperapp-nestable';
+import { h } from 'preact';
 import QRious from 'qrious';
 
-const QrCode = component(
-  {
-    size: 0,
-    value: '',
-    dataUrl: '',
-  },
-  {
-    init: () => ({ size, value }) => ({
-      dataUrl: generate({ size, value }),
-    }),
-  },
-  ({ value, dataUrl }) => (
-    <img src={dataUrl} alt={value} />
-  )
+const QrCode = ({ size, value }) => (
+  <img
+    src={new QRious({ size, value }).toDataURL()}
+    alt={value}
+  />
 );
-
-function generate({ size, value }) {
-  const qr = new QRious({
-    size,
-    value,
-  });
-  return qr.toDataURL();
-}
 
 export default QrCode;

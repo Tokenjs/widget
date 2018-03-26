@@ -1,10 +1,8 @@
-import { h } from 'hyperapp';
+import { h } from 'preact';
 import styles from './StepActions.scss';
 
-const StepActions = (state, children) => (
-  <div className={styles.root}>
-    {children}
-  </div>
+const StepActions = props => (
+  <div className={styles.root} {...props} />
 );
 
 export default StepActions;
