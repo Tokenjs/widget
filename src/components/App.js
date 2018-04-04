@@ -9,11 +9,13 @@ import closeIcon from '!raw-loader!feather-icons/dist/icons/x.svg'; // eslint-di
 import styles from './App.scss';
 
 const POLL_FOR_PAYMENTS_EVERY_MS = 2000;
+const TEMPORARY_ACCESS_TOKEN = 'X-Temporary-Access-Key';
 
 class App extends Component {
   state = {
     screen: 'contributor',
     contribution: undefined,
+    temporaryAccessKey: undefined,
   };
 
   goToScreen = screen => this.setState({ screen });
@@ -28,13 +30,19 @@ class App extends Component {
       },
     })
       .then((contribution) => {
-        this.setState({ contribution });
+        const { temporaryAccessKey, ...restOfContribution } = contribution;
+
+        this.setState({ contribution: restOfContribution, temporaryAccessKey });
         this.goToScreen('method');
       })
   );
 
   saveMethod = currency => (
-    apiClient().patch(`/contributions/${this.state.contribution.id}`, { currency })
+    apiClient().patch(`/contributions/${this.state.contribution.id}`, { currency }, {
+      headers: {
+        [TEMPORARY_ACCESS_TOKEN]: this.state.temporaryAccessKey,
+      },
+    })
       .then((contribution) => {
         this.setState({ contribution });
         this.goToScreen('deposit');
@@ -43,7 +51,11 @@ class App extends Component {
   );
 
   pollForPayments = () => (
-    apiClient().get(`/contributions/${this.state.contribution.id}?$populate=Payments`)
+    apiClient().get(`/contributions/${this.state.contribution.id}?$populate=Payments`, {
+      headers: {
+        [TEMPORARY_ACCESS_TOKEN]: this.state.temporaryAccessKey,
+      },
+    })
       .then((contribution) => {
         this.setState({ contribution });
         if (!contribution.Payments.length) {
