@@ -7,7 +7,11 @@ export default class TokenJS {
     setApiKey(apiKey);
   }
 
-  open = (container = document.body) => {
-    render(<App />, container);
+  open = (container = document.body, { campaignId }) => {
+    if (!campaignId) {
+      throw new Error('campaignId is required');
+    }
+
+    render(<App campaignId={campaignId} />, container);
   };
 }

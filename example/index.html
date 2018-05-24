@@ -11,7 +11,9 @@
       const tokenJs = new TokenJS({
         apiKey: '<%= htmlWebpackPlugin.options.API_KEY %>',
       });
-      tokenJs.open(document.getElementById('root'));
+      tokenJs.open(document.getElementById('root'), {
+        campaignId: '<%= htmlWebpackPlugin.options.CAMPAIGN_ID %>',
+      });
     </script>
   </body>
 </html>

@@ -23,8 +23,8 @@ class App extends Component {
   saveContributor = contributor => (
     apiClient().post('/contributions', {
       destinationWalletAddress: contributor.wallet,
+      campaignId: this.props.campaignId,
       type: 'crypto',
-      currency: 'ETH',
       data: {
         email: contributor.email,
       },
@@ -62,6 +62,9 @@ class App extends Component {
           setTimeout(this.pollForPayments, POLL_FOR_PAYMENTS_EVERY_MS);
         }
       })
+      .catch(() => {
+        setTimeout(this.pollForPayments, POLL_FOR_PAYMENTS_EVERY_MS);
+      })
   );
 
   render(props, { screen, contribution }) {
@@ -81,6 +84,7 @@ class App extends Component {
                 <DepositStep
                   payment={contribution.Payments && contribution.Payments[0]}
                   depositWalletAddress={contribution.depositWalletAddress}
+                  currency={contribution.currency}
                 />
               )}
             </div>

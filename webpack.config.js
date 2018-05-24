@@ -75,6 +75,7 @@ module.exports = createConfig([
         inject: 'head',
         NODE_ENV,
         API_KEY: process.env.API_KEY,
+        CAMPAIGN_ID: process.env.CAMPAIGN_ID,
       }),
     ]),
   ]),
