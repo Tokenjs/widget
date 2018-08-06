@@ -5,15 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div id="root"></div>
+    <input name="apiKey" placeholder="API Key" />
+    <button type="button" disabled>Invoke Widget</button>
 
+    <script src="../dist/Token.js"></script>
     <script>
-      const tokenJs = new TokenJS({
-        apiKey: '<%= htmlWebpackPlugin.options.API_KEY %>',
-      });
-      tokenJs.open(document.getElementById('root'), {
-        campaignId: '<%= htmlWebpackPlugin.options.CAMPAIGN_ID %>',
-      });
+      (function () {
+        const apiKeyInput = document.querySelector('[name="apiKey"]');
+        const invokeButton = document.querySelector('[type="button"]');
+
+        apiKeyInput.addEventListener('keyup', event => {
+          invokeButton.disabled = !event.target.value;
+        });
+
+        invokeButton.addEventListener('click', () => {
+          if (window.tokenJs) {
+            window.tokenJs.destroy();
+          }
+          window.tokenJs = new TokenJS({
+            apiKey: apiKeyInput.value,
+          });
+          window.tokenJs.open();
+        });
+      })();
     </script>
   </body>
 </html>

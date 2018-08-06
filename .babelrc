@@ -1,16 +1,14 @@
 {
   "presets": [
     ["env", {
-      "useBuiltIns": "entry"
+      "modules": false
     }]
   ],
   "plugins": [
+    "external-helpers",
     "transform-object-rest-spread",
     ["transform-class-properties", {
       "spec": true
-    }],
-    ["transform-react-jsx", {
-      "pragma": "h"
     }]
   ]
 }
