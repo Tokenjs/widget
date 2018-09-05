@@ -9,7 +9,7 @@ const IFRAME_MIN_VIEWPORT_SIZE = {
 export default class TokenJS {
   static version = version;
 
-  checkoutUrl = 'http://localhost:3001';
+  checkoutUrl = 'https://tokenjs-checkout.netlify.com';
 
   apiKey = null;
 
