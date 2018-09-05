@@ -13,15 +13,18 @@ export default class TokenJS {
 
   apiKey = null;
 
+  campaignId = null;
+
   iframe = null;
 
   tab = null;
 
-  constructor({ apiKey, checkoutUrl }) {
+  constructor({ apiKey, campaignId, checkoutUrl }) {
     if (checkoutUrl) {
       this.checkoutUrl = checkoutUrl;
     }
     this.apiKey = apiKey;
+    this.campaignId = campaignId;
 
     window.addEventListener('message', this.listenToPostMessages);
   }
@@ -37,7 +40,9 @@ export default class TokenJS {
   };
 
   open() {
-    const url = `${this.checkoutUrl}?apiKey=${this.apiKey}`;
+    let url = this.checkoutUrl;
+    url += `?apiKey=${this.apiKey}`;
+    url += `&campaignId=${this.campaignId}`;
 
     const { width, height } = getViewportSize();
     const { width: minWidth, height: minHeight } = IFRAME_MIN_VIEWPORT_SIZE;

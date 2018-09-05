@@ -6,17 +6,15 @@
   </head>
   <body>
     <input name="apiKey" placeholder="API Key" />
-    <button type="button" disabled>Invoke Widget</button>
+    <input name="campaignId" placeholder="Campaign ID" />
+    <button type="button">Invoke Widget</button>
 
     <script src="../dist/Token.js"></script>
     <script>
       (function () {
         const apiKeyInput = document.querySelector('[name="apiKey"]');
+        const campaignIdInput = document.querySelector('[name="campaignId"]');
         const invokeButton = document.querySelector('[type="button"]');
-
-        apiKeyInput.addEventListener('keyup', event => {
-          invokeButton.disabled = !event.target.value;
-        });
 
         invokeButton.addEventListener('click', () => {
           if (window.tokenJs) {
@@ -24,6 +22,7 @@
           }
           window.tokenJs = new TokenJS({
             apiKey: apiKeyInput.value,
+            campaignId: campaignIdInput.value,
           });
           window.tokenJs.open();
         });
