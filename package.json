@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "start": "serve -l 3002",
-    "build": "rollup -c",
+    "build": "rollup --config",
+    "watch": "rollup --config --watch",
     "precommit": "lint-staged",
     "lint": "eslint --fix src"
   },
