@@ -5,9 +5,9 @@
   "repository": "git@github.com:Cinamonas/tokenjs-widget.git",
   "private": true,
   "scripts": {
-    "start": "serve -l 3002",
+    "start": "BABEL_ENV=rollup rollup --config --watch",
     "build": "BABEL_ENV=rollup rollup --config",
-    "watch": "BABEL_ENV=rollup rollup --config --watch",
+    "serve": "serve -l 3002",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --fix src",

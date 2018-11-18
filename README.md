@@ -47,8 +47,8 @@ new TokenJS({
 
 ## Development
 
-1. `yarn`
-2. `yarn serve`
+1. `yarn` installs dependencies
+2. `yarn start` starts dev server
 
 ## License
 
