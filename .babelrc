@@ -1,14 +1,27 @@
 {
-  "presets": [
-    ["env", {
-      "modules": false
-    }]
-  ],
-  "plugins": [
-    "external-helpers",
-    "transform-object-rest-spread",
-    ["transform-class-properties", {
-      "spec": true
-    }]
-  ]
+  "env": {
+    "rollup": {
+      "presets": [
+        ["env", {
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "external-helpers",
+        "transform-object-rest-spread",
+        ["transform-class-properties", {
+          "spec": true
+        }]
+      ]
+    },
+    "test": {
+      "presets": ["env"],
+      "plugins": [
+        "transform-object-rest-spread",
+        ["transform-class-properties", {
+          "spec": true
+        }]
+      ]
+    }
+  }
 }

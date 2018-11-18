@@ -5,9 +5,11 @@
     "plugin:prettier/recommended"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "rules": {
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-use-before-define": "off"
   }
 }

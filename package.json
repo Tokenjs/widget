@@ -6,10 +6,12 @@
   "private": true,
   "scripts": {
     "start": "serve -l 3002",
-    "build": "rollup --config",
-    "watch": "rollup --config --watch",
-    "precommit": "lint-staged",
-    "lint": "eslint --fix src"
+    "build": "BABEL_ENV=rollup rollup --config",
+    "watch": "BABEL_ENV=rollup rollup --config --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint --fix src",
+    "precommit": "yarn test && lint-staged"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -36,5 +38,8 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-json": "^3.0.0",
     "serve": "^9.4.0"
+  },
+  "dependencies": {
+    "jest": "^23.6.0"
   }
 }

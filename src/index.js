@@ -1,15 +1,23 @@
 import { version } from '../package.json';
 import { createFullScreenIframe, getViewportSize } from './utils/domUtils';
+import ExtendableError from './utils/ExtendableError';
 
+const CHECKOUT_URL = 'https://tokenjs-checkout.netlify.com';
 const IFRAME_MIN_VIEWPORT_SIZE = {
   width: 400,
   height: 640,
 };
 
+class TokenJSError extends ExtendableError {
+  constructor(message) {
+    super(`[TokenJS] ${message}`);
+  }
+}
+
 export default class TokenJS {
   static version = version;
 
-  checkoutUrl = 'https://tokenjs-checkout.netlify.com';
+  checkoutUrl = null;
 
   apiKey = null;
 
@@ -19,17 +27,21 @@ export default class TokenJS {
 
   tab = null;
 
-  constructor({ apiKey, campaignId, checkoutUrl }) {
-    if (checkoutUrl) {
-      this.checkoutUrl = checkoutUrl;
-    }
-    this.apiKey = apiKey;
-    this.campaignId = campaignId;
+  constructor({ apiKey, campaignId, checkoutUrl = CHECKOUT_URL } = {}) {
+    this.apiKey = requiredParam('apiKey', apiKey);
+    this.campaignId = requiredParam('campaignId', campaignId);
+    this.checkoutUrl = requiredParam('checkoutUrl', checkoutUrl);
 
     window.addEventListener('message', this.listenToPostMessages);
   }
 
   destroy() {
+    this.close();
+
+    this.apiKey = null;
+    this.campaignId = null;
+    this.checkoutUrl = null;
+
     window.removeEventListener('message', this.listenToPostMessages);
   }
 
@@ -82,4 +94,11 @@ export default class TokenJS {
 
     this.tab = tab;
   }
+}
+
+function requiredParam(name, value) {
+  if (!value) {
+    throw new TokenJSError(`'${name}' is a required parameter`);
+  }
+  return value;
 }
