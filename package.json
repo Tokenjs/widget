@@ -5,16 +5,19 @@
   "repository": "Tokenjs/widget",
   "license": "MIT",
   "main": "dist/Token.js",
-  "module": "src/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "BABEL_ENV=rollup rollup --config --watch",
-    "build": "BABEL_ENV=rollup rollup --config",
+    "build": "BABEL_ENV=rollup rollup --config && npm run compress",
+    "compress": "uglifyjs --compress --mangle --output dist/Token.min.js dist/Token.js",
     "serve": "serve -l 3002",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --fix src",
-    "precommit": "yarn test && lint-staged"
+    "precommit": "yarn test && lint-staged",
+    "prepublishOnly": "yarn run lint && yarn run test && yarn run build"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -42,5 +45,8 @@
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-json": "^3.0.0",
     "serve": "^9.4.0"
+  },
+  "dependencies": {
+    "uglify-js": "^3.4.9"
   }
 }

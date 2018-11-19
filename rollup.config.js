@@ -6,7 +6,7 @@ export default {
   output: {
     file: 'dist/Token.js',
     name: 'TokenJS',
-    format: 'iife',
+    format: 'umd',
   },
   plugins: [
     json(),
