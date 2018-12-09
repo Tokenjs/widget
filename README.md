@@ -44,6 +44,7 @@ new TokenJS({
 ### Instance methods
 
 - `open()` – opens the widget
+- `embed(container)` – renders the widget inside the `container`
 - `close()` – closes the widget
 - `destroy()` – destroys instance of the widget
 

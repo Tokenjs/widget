@@ -46,7 +46,7 @@ describe('TokenJS', () => {
     inst = new TokenJS({ apiKey: 'API_KEY', campaignId: 'CAMPAIGN_ID' });
     inst.close = jest.fn();
 
-    await postMessage('close');
+    await postMessage({ type: 'close' });
 
     expect(inst.close.mock.calls).toEqual([[]]);
   });
@@ -62,7 +62,7 @@ describe('TokenJS', () => {
       const iframe = [...document.querySelectorAll('iframe')];
       expect(iframe).toHaveLength(1);
       expect(iframe[0].src).toBe(
-        'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
+        'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&mode=iframe',
       );
     });
 
@@ -77,7 +77,7 @@ describe('TokenJS', () => {
 
       expect(window.open.mock.calls).toEqual([
         [
-          'https://tokenjs-checkout.netlify.com?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
+          'https://tokenjs-checkout.netlify.com?apiKey=API_KEY&campaignId=CAMPAIGN_ID&mode=tab',
           '_blank',
         ],
       ]);
@@ -93,7 +93,40 @@ describe('TokenJS', () => {
 
       const iframe = document.body.querySelector('iframe');
       expect(iframe.src).toBe(
-        'https://foo.bar/?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
+        'https://foo.bar/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&mode=iframe',
+      );
+    });
+  });
+
+  describe('embed()', () => {
+    let container;
+
+    beforeEach(() => {
+      inst = new TokenJS({
+        apiKey: 'API_KEY',
+        campaignId: 'CAMPAIGN_ID',
+      });
+
+      container = document.createElement('div');
+      container.classList.add('embed');
+      container.style.width = 320;
+      container.style.height = 500;
+      document.body.appendChild(container);
+    });
+
+    it('should render widget inside the provided container', () => {
+      inst.embed(container);
+
+      const iframe = document.body.querySelector('iframe');
+      expect(iframe.closest('.embed')).toBe(container);
+    });
+
+    it('should render URL with mode=embed', () => {
+      inst.embed(container);
+
+      const iframe = document.body.querySelector('iframe');
+      expect(iframe.src).toBe(
+        'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&mode=embed',
       );
     });
   });
