@@ -28,9 +28,9 @@ export default class TokenJS {
   tab = null;
 
   constructor({ apiKey, campaignId, checkoutUrl = CHECKOUT_URL } = {}) {
-    this.apiKey = requiredParam('apiKey', apiKey);
-    this.campaignId = requiredParam('campaignId', campaignId);
-    this.checkoutUrl = requiredParam('checkoutUrl', checkoutUrl);
+    this.apiKey = requiredParam({ apiKey });
+    this.campaignId = requiredParam({ campaignId });
+    this.checkoutUrl = requiredParam({ checkoutUrl });
 
     window.addEventListener('message', this.listenToPostMessages);
   }
@@ -98,9 +98,13 @@ export default class TokenJS {
   }
 }
 
-function requiredParam(name, value) {
-  if (!value) {
-    throw new TokenJSError(`'${name}' is a required parameter`);
-  }
+function requiredParam(param) {
+  let value;
+  Object.keys(param).forEach(name => {
+    if (!param[name]) {
+      throw new TokenJSError(`'${name}' is a required parameter`);
+    }
+    value = param[name];
+  });
   return value;
 }
