@@ -79,15 +79,11 @@ export default class TokenJS {
   }
 
   attachIframe(url) {
-    const iframe = createFullScreenIframe();
-    iframe.style.visibility = 'hidden';
-    iframe.addEventListener('load', () => {
-      iframe.style.visibility = 'visible';
-    });
+    const { wrapper, iframe } = createFullScreenIframe();
     iframe.src = url;
-    document.body.appendChild(iframe);
+    document.body.appendChild(wrapper);
 
-    this.iframe = iframe;
+    this.iframe = wrapper;
   }
 
   openNewTab(url) {

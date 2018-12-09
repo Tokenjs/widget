@@ -59,9 +59,9 @@ describe('TokenJS', () => {
       });
       inst.open();
 
-      const iframe = document.body.lastChild;
-      expect(iframe.tagName).toBe('IFRAME');
-      expect(iframe.src).toBe(
+      const iframe = [...document.querySelectorAll('iframe')];
+      expect(iframe).toHaveLength(1);
+      expect(iframe[0].src).toBe(
         'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
       );
     });
