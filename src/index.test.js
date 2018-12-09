@@ -48,7 +48,7 @@ describe('TokenJS', () => {
 
     await postMessage('close');
 
-    expect(inst.close).toHaveBeenCalledWith();
+    expect(inst.close.mock.calls).toEqual([[]]);
   });
 
   describe('open()', () => {
@@ -75,10 +75,12 @@ describe('TokenJS', () => {
       resizeWindow(320, 500);
       inst.open();
 
-      expect(window.open).toHaveBeenCalledWith(
-        'https://tokenjs-checkout.netlify.com?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
-        '_blank',
-      );
+      expect(window.open.mock.calls).toEqual([
+        [
+          'https://tokenjs-checkout.netlify.com?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
+          '_blank',
+        ],
+      ]);
     });
 
     it('should open the overridden checkout URL', () => {
@@ -89,7 +91,7 @@ describe('TokenJS', () => {
       });
       inst.open();
 
-      const iframe = document.body.lastChild;
+      const iframe = document.body.querySelector('iframe');
       expect(iframe.src).toBe(
         'https://foo.bar/?apiKey=API_KEY&campaignId=CAMPAIGN_ID',
       );
@@ -106,11 +108,25 @@ describe('TokenJS', () => {
 
     it('should remove the iframe the widget was opened in', () => {
       inst.open();
+      inst.destroy();
+
+      expect(document.body.querySelector('iframe')).toBe(null);
+    });
+
+    it('should not fail when iframe was already removed', () => {
+      inst.open();
+      inst.close();
+
+      expect(() => inst.close()).not.toThrow();
     });
 
     it('should close the tab the widget was opened in', () => {
       resizeWindow(320, 500);
       inst.open();
+      const { tab } = inst;
+      inst.close();
+
+      expect(tab.close.mock.calls).toEqual([[]]);
     });
   });
 
@@ -127,7 +143,7 @@ describe('TokenJS', () => {
       inst.close = jest.fn();
       inst.destroy();
 
-      expect(inst.close).toHaveBeenCalledWith();
+      expect(inst.close.mock.calls).toEqual([[]]);
     });
 
     it('should unset instance properties', () => {

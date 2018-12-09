@@ -70,9 +70,11 @@ export default class TokenJS {
   close() {
     if (this.iframe) {
       this.iframe.parentNode.removeChild(this.iframe);
+      this.iframe = null;
     }
     if (this.tab) {
       this.tab.close();
+      this.tab = null;
     }
   }
 
