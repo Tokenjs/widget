@@ -6,7 +6,7 @@
 
 ## Installation
 
-1. `npm install tokenjs` or `yarn add tokenjs` or grab from CDN:
+1. `npm install @tokenjs/widget` or `yarn add @tokenjs/widget` or grab from CDN:
     - original: https://unpkg.com/@tokenjs/widget/dist/Token.js
     - minified: https://unpkg.com/@tokenjs/widget/dist/Token.min.js
 2. Initialize widget:
