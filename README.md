@@ -38,6 +38,35 @@ new TokenJS({
   
   // (optional) Checkout URL
   checkoutUrl: '',
+  
+  // (optional) Text to display in widget’s header
+  title: '',
+  
+  // (optional) Theme
+  theme: {
+    // you can override any of the following defaults:
+    background: '#fff',
+    muted: '#f5f5f5',
+    text: '#4a4a4a',
+    textLight: '#7a7a7a',
+    link: '#3273dc',
+    primary: '#00d1b2',
+    primaryInverted: '#fff',
+    secondary: '#209cee',
+    secondaryInverted: '#fff',
+    success: '#23d160',
+    successInverted: '#fff',
+    danger: '#ff3860',
+    dangerInverted: '#fff',
+    ethereum: '#454b72',
+    ethereumInverted: '#fff',
+    bitcoin: '#eb973d',
+    bitcoinInverted: '#fff',
+    bitcoinCash: '#e48f39',
+    bitcoinCashInverted: '#fff',
+    litecoin: '#bebebe',
+    litecoinInverted: '#fff',
+  },
 })
 ```
 

@@ -96,6 +96,37 @@ describe('TokenJS', () => {
         'https://foo.bar/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&mode=iframe',
       );
     });
+
+    it('should send encoded title param to checkout if provided', () => {
+      inst = new TokenJS({
+        apiKey: 'API_KEY',
+        campaignId: 'CAMPAIGN_ID',
+        title: '<strong>foo</strong>',
+      });
+      inst.open();
+
+      const iframe = document.body.querySelector('iframe');
+      expect(iframe.src).toBe(
+        'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&title=%3Cstrong%3Efoo%3C%2Fstrong%3E&mode=iframe',
+      );
+    });
+
+    it('should send encoded theme param to checkout if provided', () => {
+      inst = new TokenJS({
+        apiKey: 'API_KEY',
+        campaignId: 'CAMPAIGN_ID',
+        theme: {
+          background: '#0f0',
+          text: '#f00',
+        },
+      });
+      inst.open();
+
+      const iframe = document.body.querySelector('iframe');
+      expect(iframe.src).toBe(
+        'https://tokenjs-checkout.netlify.com/?apiKey=API_KEY&campaignId=CAMPAIGN_ID&theme=%7B%22background%22%3A%22%230f0%22%2C%22text%22%3A%22%23f00%22%7D&mode=iframe',
+      );
+    });
   });
 
   describe('embed()', () => {
@@ -121,7 +152,7 @@ describe('TokenJS', () => {
       expect(iframe.closest('.embed')).toBe(container);
     });
 
-    it('should render URL with mode=embed', () => {
+    it('should set mode=embed URL param', () => {
       inst.embed(container);
 
       const iframe = document.body.querySelector('iframe');

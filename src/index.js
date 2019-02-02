@@ -29,10 +29,22 @@ export default class TokenJS {
 
   embedded = false;
 
-  constructor({ apiKey, campaignId, checkoutUrl = CHECKOUT_URL } = {}) {
+  title = null;
+
+  theme = null;
+
+  constructor({
+    apiKey,
+    campaignId,
+    checkoutUrl = CHECKOUT_URL,
+    theme,
+    title,
+  } = {}) {
     this.apiKey = requiredParam({ apiKey });
     this.campaignId = requiredParam({ campaignId });
     this.checkoutUrl = requiredParam({ checkoutUrl });
+    this.title = title;
+    this.theme = theme;
 
     window.addEventListener('message', this.listenToMessages);
   }
@@ -41,6 +53,12 @@ export default class TokenJS {
     let url = this.checkoutUrl;
     url += `?apiKey=${this.apiKey}`;
     url += `&campaignId=${this.campaignId}`;
+    if (this.title) {
+      url += `&title=${encodeURIComponent(this.title)}`;
+    }
+    if (this.theme) {
+      url += `&theme=${encodeURIComponent(JSON.stringify(this.theme))}`;
+    }
     return url;
   }
 
