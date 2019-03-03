@@ -62,6 +62,16 @@ export default class TokenJS {
     return url;
   }
 
+  get window() {
+    if (this.iframe) {
+      return this.iframe.querySelector('iframe').contentWindow;
+    }
+    if (this.tab) {
+      return this.tab;
+    }
+    return undefined;
+  }
+
   destroy() {
     this.close();
 
@@ -113,6 +123,22 @@ export default class TokenJS {
       this.tab.close();
       this.tab = null;
     }
+  }
+
+  update({ title, theme } = {}) {
+    this.title = title || this.title;
+    this.theme = theme || this.theme;
+
+    this.window.postMessage(
+      {
+        type: 'update',
+        message: {
+          title: this.title,
+          theme: this.theme,
+        },
+      },
+      '*',
+    );
   }
 }
 

@@ -75,6 +75,7 @@ new TokenJS({
 - `open()` – opens the widget
 - `embed(container)` – renders the widget inside the `container`
 - `close()` – closes the widget
+- `update({ title, theme })` – updates initialization options on an existing widget
 - `destroy()` – destroys instance of the widget
 
 ## Development

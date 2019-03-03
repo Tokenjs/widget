@@ -214,6 +214,91 @@ describe('TokenJS', () => {
     });
   });
 
+  describe('update()', () => {
+    beforeEach(() => {
+      inst = new TokenJS({
+        apiKey: 'API_KEY',
+        campaignId: 'CAMPAIGN_ID',
+        checkoutUrl: 'https://foo.bar',
+        title: 'foo',
+        theme: {
+          primary: '#f00',
+        },
+      });
+      inst.open();
+
+      inst.window.postMessage = jest.fn();
+    });
+
+    it('should update title if provided', () => {
+      inst.update({ title: 'bar' });
+
+      expect(inst.window.postMessage).toHaveBeenCalledWith(
+        {
+          type: 'update',
+          message: {
+            title: 'bar',
+            theme: {
+              primary: '#f00',
+            },
+          },
+        },
+        '*',
+      );
+    });
+
+    it('should not update title if not provided', () => {
+      inst.update();
+
+      expect(inst.window.postMessage).toHaveBeenCalledWith(
+        {
+          type: 'update',
+          message: {
+            title: 'foo',
+            theme: {
+              primary: '#f00',
+            },
+          },
+        },
+        '*',
+      );
+    });
+
+    it('should update theme if provided', () => {
+      inst.update({ theme: { primary: '#0f0' } });
+
+      expect(inst.window.postMessage).toHaveBeenCalledWith(
+        {
+          type: 'update',
+          message: {
+            title: 'foo',
+            theme: {
+              primary: '#0f0',
+            },
+          },
+        },
+        '*',
+      );
+    });
+
+    it('should not update theme if not provided', () => {
+      inst.update();
+
+      expect(inst.window.postMessage).toHaveBeenCalledWith(
+        {
+          type: 'update',
+          message: {
+            title: 'foo',
+            theme: {
+              primary: '#f00',
+            },
+          },
+        },
+        '*',
+      );
+    });
+  });
+
   describe('destroy()', () => {
     beforeEach(() => {
       inst = new TokenJS({
