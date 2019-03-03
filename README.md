@@ -56,6 +56,8 @@ new TokenJS({
     secondaryInverted: '#fff',
     success: '#23d160',
     successInverted: '#fff',
+    warning: '#ff8838',
+    warningInverted: '#fff',
     danger: '#ff3860',
     dangerInverted: '#fff',
     ethereum: '#454b72',
