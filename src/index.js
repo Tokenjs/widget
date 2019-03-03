@@ -39,12 +39,14 @@ export default class TokenJS {
     checkoutUrl = CHECKOUT_URL,
     title,
     theme,
+    demo,
   } = {}) {
     this.apiKey = requiredParam({ apiKey });
     this.campaignId = requiredParam({ campaignId });
     this.checkoutUrl = requiredParam({ checkoutUrl });
     this.title = title;
     this.theme = theme;
+    this.demo = demo;
 
     window.addEventListener('message', this.listenToMessages);
   }
@@ -58,6 +60,9 @@ export default class TokenJS {
     }
     if (this.theme) {
       url += `&theme=${encodeURIComponent(JSON.stringify(this.theme))}`;
+    }
+    if (this.demo) {
+      url += `&demo`;
     }
     return url;
   }
