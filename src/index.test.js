@@ -44,14 +44,34 @@ describe('TokenJS', () => {
 
   it("should close widget on 'close' post message", async () => {
     inst = new TokenJS({ apiKey: 'API_KEY', campaignId: 'CAMPAIGN_ID' });
+
+    const closeOrig = inst.close;
     inst.close = jest.fn();
 
     await postMessage({ type: 'close' });
 
     expect(inst.close.mock.calls).toEqual([[]]);
+
+    inst.close = closeOrig;
   });
 
   describe('open()', () => {
+    it('should close an already open widget', () => {
+      inst = new TokenJS({
+        apiKey: 'API_KEY',
+        campaignId: 'CAMPAIGN_ID',
+      });
+
+      const closeOrig = inst.close;
+      inst.close = jest.fn();
+
+      inst.open();
+
+      expect(inst.close.mock.calls).toEqual([[]]);
+
+      inst.close = closeOrig;
+    });
+
     it('should open widget in an iframe when viewport is big enough', () => {
       inst = new TokenJS({
         apiKey: 'API_KEY',
@@ -204,10 +224,14 @@ describe('TokenJS', () => {
     });
 
     it('should close widget', () => {
+      const closeOrig = inst.close;
       inst.close = jest.fn();
+
       inst.destroy();
 
       expect(inst.close.mock.calls).toEqual([[]]);
+
+      inst.close = closeOrig;
     });
 
     it('should unset instance properties', () => {
@@ -220,12 +244,16 @@ describe('TokenJS', () => {
     });
 
     it('should stop listening to post messages', async () => {
+      const closeOrig = inst.close;
       inst.close = jest.fn();
+
       inst.destroy();
 
       await postMessage('close');
 
       expect(inst.close.mock.calls.length).toEqual(1);
+
+      inst.close = closeOrig;
     });
   });
 });

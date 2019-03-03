@@ -37,8 +37,8 @@ export default class TokenJS {
     apiKey,
     campaignId,
     checkoutUrl = CHECKOUT_URL,
-    theme,
     title,
+    theme,
   } = {}) {
     this.apiKey = requiredParam({ apiKey });
     this.campaignId = requiredParam({ campaignId });
@@ -85,6 +85,8 @@ export default class TokenJS {
   };
 
   open() {
+    this.close();
+
     const { width, height } = getViewportSize();
     const { width: minWidth, height: minHeight } = IFRAME_MIN_VIEWPORT_SIZE;
 
