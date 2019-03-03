@@ -1,6 +1,6 @@
 {
   "name": "@tokenjs/widget",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A widget for displaying Token.js checkout",
   "repository": "Tokenjs/widget",
   "license": "MIT",
